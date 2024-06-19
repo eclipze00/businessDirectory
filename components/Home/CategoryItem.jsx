@@ -22,7 +22,8 @@ export default function CategoryItem({category, onCategoryPress}) {
         fontSize:12,
         fontFamily: 'outfit-medium',
         textAlign: 'center',
-        marginTop: 5
+        marginTop: 5,
+        marginRight: 15
       }}
         >{category.name}
       </Text>

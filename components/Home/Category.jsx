@@ -54,7 +54,6 @@ export default function Category() {
         horizontal={true}
         style={{
           marginLeft:20,
-
         }}
         showsHorizontalScrollIndicator={false}
         renderItem={({item,index})=>(
