@@ -19,7 +19,7 @@ export default function PopularBusinessCard({business}) {
       />
       <View style={{
         marginTop: 7,
-        gap: 5
+        gap: 5,
       }}>
         <Text style={{
           fontFamily: 'outfit-bold',
