@@ -28,24 +28,43 @@ export default function BusinessListByCategory() {
     usado para pegar a businessList por categoria
   */
   const getBusinessList=async()=>{
-    setLoading(true)
+    setLoading(true);
+    try {
     const q=query(collection(db, 'BusinessList'), where("category",'==',category));
     const querySnapshot=await getDocs(q);
 
-    querySnapshot.forEach((doc)=>{
-      console.log(doc.data())
-      setBusinessList(prev=>[...prev,doc.data()])
-    })
+    const newBusinessList = [];
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      data.id = doc.id; //Garantir que cada item tenha um ID unico
+      newBusinessList.push(data);
+    });
+
+    /* Atualizar a lista de forma a evitar duplicados */
+
+    setBusinessList((prevList) => {
+      const mergedList = [...prevList];
+      newBusinessList.forEach((item) => {
+        if (!mergedList.some((business) => business.id == item.id)) {
+          mergedList.push(item);
+        }
+      });
+      return mergedList;
+    });
+  } catch (error){
+    console.error('Erro ao buscar lista de negócios:', error);  
+  } finally {
     setLoading(false);
   }
-
+};
+ 
   return (
     <View>
       {businessList?.length>0&&loading==false?
       <FlatList
         data={businessList}
-        refreshing={loading}
         onRefresh={getBusinessList}
+        refreshing={loading}
         renderItem={({item,index})=>(
           <BusinessListCard
             business={item}
