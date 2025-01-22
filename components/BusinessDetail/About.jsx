@@ -6,7 +6,7 @@ export default function About({business}) {
     <View style={{
       padding:20,
       backgroundColor:'#fff',
-      height: '100%'
+      //height: '100%'
     }}>
       <Text style={{fontFamily:'outfit-bold',fontSize:20}}>Sobre</Text>
       <Text style={{fontFamily:'outfit-medium', lineHeight: 25}}>{business?.about}</Text>
