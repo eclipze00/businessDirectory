@@ -7,6 +7,11 @@ import { Colors } from '../../constants/Colors';
 import Intro from '../../components/BusinessDetail/Intro';
 import ActionButton from '../../components/BusinessDetail/ActionButton';
 import About from '../../components/BusinessDetail/About';
+import Review from '../../components/BusinessDetail/Review';
+
+
+
+
 
 export default function BusinessDetail() {
 
@@ -27,7 +32,7 @@ export default function BusinessDetail() {
     const docSnap=await getDoc(docRef);
     if (docSnap.exists()){
       console.log ("Document Data:", docSnap.data());
-      setBusiness(docSnap.data());
+      setBusiness({id:docSnap.id,...docSnap.data()});
       setLoading(false);
     } else{
       console.log("Documento Inexistente");
@@ -35,7 +40,7 @@ export default function BusinessDetail() {
     }
   }
   return (
-    <View>
+    <ScrollView contentContainerStyle={{ flexGrow: 1}}>
       {loading?
      <ActivityIndicator
      style={{
@@ -44,17 +49,17 @@ export default function BusinessDetail() {
         size={'large'}
         color={Colors.PRIMARY}
      />:
-     <View>
-        
+     <View>      
         {/**Intro*/}
-        <Intro business={business}/>
-
+        <Intro business={business} style={{ borderWidth: 1, borderColor: 'red' }}/>
         {/* Action Buttons */}
-        <ActionButton business={business}/>
+        <ActionButton business={business} style={{ borderWidth: 1, borderColor: 'blue'}}/>
         {/* Sobre */}
-        <About business={business}/>
+        <About business={business} style={{ borderWidth: 1, borderColor: 'green' }}/>
+        {/* Avaliaçoes */}
+        <Review business={business}/>
      </View>
     }
-    </View>
+    </ScrollView>
   )
 }
