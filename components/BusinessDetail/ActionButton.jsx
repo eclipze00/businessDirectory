@@ -48,8 +48,8 @@ export default function ActionButton({business}) {
     }}>
       <FlatList
         data={actionButtonMenu}
-        numColumns={4}
-        columnWrapperStyle={{justifyContent:'space-between'}}
+        horizontal={true}
+        contentContainerStyle={{width: '100%', justifyContent:'space-between'}}
         keyExtractor={(item) => item.id.toString()}
         renderItem={({item})=>(
           <TouchableOpacity style={{ marginBottom: 10}}
@@ -58,8 +58,8 @@ export default function ActionButton({business}) {
             <Image 
               source={item?.icon}
               style={{
-                width:40,
-                height:40,
+                width:50,
+                height:50,
                 resizeMode: 'contain'
               }}
             />
