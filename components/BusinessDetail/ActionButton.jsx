@@ -1,4 +1,4 @@
-import { View, Text, FlatList, Image, TouchableOpacity, Linking } from 'react-native'
+import { View, Text, FlatList, Image, TouchableOpacity, Linking, Share } from 'react-native'
 import React from 'react'
 import Feather from '@expo/vector-icons/Feather';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -34,8 +34,11 @@ export default function ActionButton({business}) {
   ]
 
   const OnPressHandle=(item)=>{
-    if(item.name=='share')
+    if(item.name=='Share')
     {
+      Share.share({
+        message:business?.name+"\n Address:"+business.address+"\n Descubra mais em nosso aplicativo. by Eclipze!"
+      })
       return; 
     }
     Linking.openURL(item.url);
