@@ -14,15 +14,20 @@ export default function PopularBusiness() {
   },[]);
 
   const GetBusinessList=async()=>{
-    setBusinessList([]);
-    const q=query(collection(db, 'BusinessList'), limit(10));
-    const querySnapshot=await getDocs(q);
+    try {
+      const q=query(collection(db, 'BusinessList'), limit(10));
+      const querySnapshot = await getDocs(q);
 
-    querySnapshot.forEach((doc)=>{
-      console.log(doc.data());
-      setBusinessList(prev=>[...prev,doc.data()])
-    })
-  }
+      const business = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      setBusinessList(business);
+    } catch (error) {
+      console.error('Erro ao buscar a lista de negócios:', error);
+    }
+  };
 
   return (
     <View>
@@ -53,10 +58,10 @@ export default function PopularBusiness() {
         data={businessList}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
-        renderItem={({item,index})=>(
+        keyExtractor={(item) => item.id} // Define um unico ID para cada Item
+        renderItem={({item})=>(
           <PopularBusinessCard
-          key={index}
-          business={item}/>
+            business={item}/>
         )}
       />
 
